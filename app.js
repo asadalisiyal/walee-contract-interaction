@@ -7,8 +7,8 @@ const WALEE_NETWORK = {
     chainId: `0x${CHAIN_ID.toString(16)}`,
     chainName: 'Walee Chain',
     nativeCurrency: {
-        name: 'WAL',
-        symbol: 'WAL',
+        name: 'WLE',
+        symbol: 'WLE',
         decimals: 18,
     },
     rpcUrls: ['https://evm.walee.pk'],

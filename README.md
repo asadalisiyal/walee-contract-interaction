@@ -63,7 +63,7 @@ A web application that allows users to interact with a smart contract deployed o
 
 - MetaMask browser extension
 - Walee Chain network added to MetaMask (the app will prompt to add it)
-- Some WAL tokens for gas fees
+- Some WLE tokens for gas fees
 
 ## Technical Details
 
