@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walee Chain Contract Interaction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .wallet-status {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .wallet-connected {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+        }
+        .wallet-disconnected {
+            background: linear-gradient(45deg, #dc3545, #fd7e14);
+            color: white;
+        }
+        .btn-custom {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+        .form-control {
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+            padding: 15px;
+            font-size: 16px;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        .transaction-hash {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+        }
+        .retrieved-value {
+            background: linear-gradient(45deg, #17a2b8, #6f42c1);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .loading {
+            display: none;
+        }
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="main-container p-5">
+                    <h1 class="text-center mb-4">
+                        <i class="fas fa-cube me-2"></i>
+                        WaleeChain Contract Interaction
+                    </h1>
+                    
+                    <!-- Wallet Status -->
+                    <div id="walletStatus" class="wallet-status wallet-disconnected">
+                        <i class="fas fa-wallet me-2"></i>
+                        <span id="walletMessage">Wallet not connected</span>
+                    </div>
+                    
+                    <!-- Wallet Connection Button -->
+                    <div class="text-center mb-4">
+                        <button id="connectWallet" class="btn btn-custom btn-lg">
+                            <i class="fas fa-plug me-2"></i>
+                            Connect MetaMask
+                        </button>
+                    </div>
+                    
+                    <!-- Store Value Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-save me-2"></i>
+                                Store Value
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="valueInput" class="form-label">Enter a number to store:</label>
+                                <input type="number" class="form-control" id="valueInput" placeholder="Enter a number">
+                            </div>
+                            <button id="storeButton" class="btn btn-custom" disabled>
+                                <i class="fas fa-upload me-2"></i>
+                                Store Value
+                                <span class="loading">
+                                    <span class="spinner-border spinner-border-sm ms-2" role="status"></span>
+                                </span>
+                            </button>
+                            <div id="transactionResult" class="transaction-hash" style="display: none;">
+                                <strong>Transaction Hash:</strong>
+                                <div id="transactionHash"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Retrieve Value Section -->
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-download me-2"></i>
+                                Retrieve Value
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <button id="retrieveButton" class="btn btn-custom" disabled>
+                                <i class="fas fa-search me-2"></i>
+                                Retrieve Value
+                                <span class="loading">
+                                    <span class="spinner-border spinner-border-sm ms-2" role="status"></span>
+                                </span>
+                            </button>
+                            <div id="retrievedValue" class="retrieved-value" style="display: none;">
+                                <div id="retrievedValueText"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.7.1/dist/ethers.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

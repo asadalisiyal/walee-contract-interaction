@@ -1,0 +1,22 @@
+{
+  "name": "walee-chain-contract-demo",
+  "version": "1.0.0",
+  "description": "A web application to interact with a smart contract deployed on Walee Chain",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "smart-contract",
+    "walee-chain",
+    "metamask"
+  ],
+  "author": "Contract Demo",
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^6.7.1"
+  }
+}
