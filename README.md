@@ -34,7 +34,7 @@ A web application that allows users to interact with a smart contract deployed o
    ```
 
 4. **Open the Application**
-   - Navigate to `http://localhost:3000` in your browser
+   - Navigate to `http://localhost:3001` in your browser
 
 ## Usage Instructions
 
