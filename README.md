@@ -5,6 +5,7 @@ A web application that allows users to interact with a smart contract deployed o
 ## Features
 
 - **MetaMask Wallet Connection**: Connect your MetaMask wallet to the application
+- **Add Walee Network**: One-click button to add Walee Chain network to MetaMask
 - **Store Value**: Input a numeric value and store it on the blockchain
 - **Retrieve Value**: Retrieve the currently stored value from the contract
 - **Transaction Tracking**: View transaction hashes after successful operations
@@ -38,18 +39,23 @@ A web application that allows users to interact with a smart contract deployed o
 
 ## Usage Instructions
 
-1. **Connect Wallet**
+1. **Add Walee Network** (Optional)
+   - Click "Add Walee Network" button in the top right corner
+   - This will add Walee Chain to your MetaMask networks
+   - Network details: RPC URL: `https://evm.walee.pk`, Explorer: `https://evmexplorer.walee.pk/`
+
+2. **Connect Wallet**
    - Click "Connect MetaMask" button
    - Approve the connection in MetaMask
    - The app will automatically switch to Walee Chain (Chain ID: 713714)
 
-2. **Store a Value**
+3. **Store a Value**
    - Enter a numeric value in the input field
    - Click "Store Value" button
    - Sign the transaction in MetaMask
    - View the transaction hash once confirmed
 
-3. **Retrieve Value**
+4. **Retrieve Value**
    - Click "Retrieve Value" button
    - The stored value will be displayed on the page
 

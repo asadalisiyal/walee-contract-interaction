@@ -1,6 +1,19 @@
 // Contract configuration
 const CONTRACT_ADDRESS = '0x458e93d88F737fD7c6A290d0d1622FfDF3411D26';
 const CHAIN_ID = 713714; // Walee Chain ID
+
+// Walee Network configuration
+const WALEE_NETWORK = {
+    chainId: `0x${CHAIN_ID.toString(16)}`,
+    chainName: 'Walee Chain',
+    nativeCurrency: {
+        name: 'WAL',
+        symbol: 'WAL',
+        decimals: 18,
+    },
+    rpcUrls: ['https://evm.walee.pk'],
+    blockExplorerUrls: ['https://evmexplorer.walee.pk/'],
+};
 const CONTRACT_ABI = [
     {
         "inputs": [
@@ -38,6 +51,7 @@ let userAddress = null;
 
 // DOM elements
 const connectWalletBtn = document.getElementById('connectWallet');
+const addNetworkBtn = document.getElementById('addNetworkBtn');
 const walletStatus = document.getElementById('walletStatus');
 const walletMessage = document.getElementById('walletMessage');
 const storeButton = document.getElementById('storeButton');
@@ -66,12 +80,35 @@ async function checkNetwork() {
     }
 }
 
+// Add Walee Network to MetaMask
+async function addWaleeNetwork() {
+    if (!isMetaMaskInstalled()) {
+        alert('MetaMask is not installed. Please install MetaMask to add the Walee network.');
+        return;
+    }
+
+    try {
+        await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [WALEE_NETWORK],
+        });
+        alert('Walee Chain network added successfully!');
+    } catch (error) {
+        console.error('Error adding Walee Chain:', error);
+        if (error.code === 4902) {
+            alert('Walee Chain network is already added to MetaMask.');
+        } else {
+            alert('Failed to add Walee Chain network: ' + error.message);
+        }
+    }
+}
+
 // Switch to Walee Chain
 async function switchToWaleeChain() {
     try {
         await window.ethereum.request({
             method: 'wallet_switchEthereumChain',
-            params: [{ chainId: `0x${CHAIN_ID.toString(16)}` }],
+            params: [{ chainId: WALEE_NETWORK.chainId }],
         });
         return true;
     } catch (switchError) {
@@ -80,17 +117,7 @@ async function switchToWaleeChain() {
             try {
                 await window.ethereum.request({
                     method: 'wallet_addEthereumChain',
-                    params: [{
-                        chainId: `0x${CHAIN_ID.toString(16)}`,
-                        chainName: 'Walee Chain',
-                        nativeCurrency: {
-                            name: 'WAL',
-                            symbol: 'WAL',
-                            decimals: 18,
-                        },
-                        rpcUrls: ['https://rpc.walee.io'], // You may need to update this with actual RPC URL
-                        blockExplorerUrls: ['https://explorer.walee.io'], // You may need to update this
-                    }],
+                    params: [WALEE_NETWORK],
                 });
                 return true;
             } catch (addError) {
@@ -261,6 +288,7 @@ async function retrieveValue() {
 
 // Event listeners
 connectWalletBtn.addEventListener('click', connectWallet);
+addNetworkBtn.addEventListener('click', addWaleeNetwork);
 storeButton.addEventListener('click', storeValue);
 retrieveButton.addEventListener('click', retrieveValue);
 
